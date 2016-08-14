@@ -19,38 +19,41 @@ import utility.Credential;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class WelcomeJPanel extends JPanel {
 	private JTextField usernameField;
 	private JPasswordField passwordField;
+	//private static Employee loggedInEmployee;
 
 	/**
 	 * Create the panel.
 	 */
 	public WelcomeJPanel(final JFrame currentFrame) {
-		setBounds(new Rectangle(0, 0, 1100, 700));
+		setBackground(Color.GRAY);
+		setBounds(new Rectangle(0, 0, 900, 700));
 		setLayout(null);
 		
-		JLabel lblWelcomeToEagles = new JLabel("Welcome to Eagles Consulting Company! Login for access.");
-		lblWelcomeToEagles.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-		lblWelcomeToEagles.setBounds(225, 83, 538, 40);
+		JLabel lblWelcomeToEagles = new JLabel("Welcome to Eagles Consulting Company!");
+		lblWelcomeToEagles.setFont(new Font("Lucida Grande", Font.PLAIN, 22));
+		lblWelcomeToEagles.setBounds(246, 146, 436, 40);
 		add(lblWelcomeToEagles);
 		
 		JLabel lblUsername = new JLabel("Username:");
-		lblUsername.setBounds(300, 180, 70, 30);
+		lblUsername.setBounds(300, 300, 70, 30);
 		add(lblUsername);
 		
 		JLabel lblPassword = new JLabel("Password:");
-		lblPassword.setBounds(300, 220, 70, 30);
+		lblPassword.setBounds(300, 340, 70, 30);
 		add(lblPassword);
 		
 		usernameField = new JTextField();
-		usernameField.setBounds(380, 180, 150, 30);
+		usernameField.setBounds(380, 300, 200, 30);
 		add(usernameField);
 		usernameField.setColumns(10);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(380, 220, 150, 30);
+		passwordField.setBounds(380, 340, 200, 30);
 		add(passwordField);
 		
 		JButton btnLogin = new JButton("Login");
@@ -67,6 +70,8 @@ public class WelcomeJPanel extends JPanel {
 				cred.setPassword(password);
 				
 				Employee employee = testMain.logIn(cred);
+				employee.print();
+				//loggedInEmployee = testMain.logIn(cred);
 			
 				if (!(employee == null))
 				{
@@ -79,6 +84,10 @@ public class WelcomeJPanel extends JPanel {
 						    "You are successfully Logged in!",
 						    "Login Success",
 						    JOptionPane.INFORMATION_MESSAGE);
+					
+					((SystemJFrame)currentFrame).loggedInEmployee = testMain.logIn(cred);;
+					
+					System.out.println("------- " + ((SystemJFrame)currentFrame).loggedInEmployee.getName());
 					
 					currentFrame.getContentPane().removeAll();
 					HomePageJPanel homepageJPanel = new HomePageJPanel(currentFrame, employee);
@@ -95,7 +104,7 @@ public class WelcomeJPanel extends JPanel {
 				}
 			}
 		});
-		btnLogin.setBounds(450, 262, 80, 30);
+		btnLogin.setBounds(430, 380, 100, 30);
 		add(btnLogin);
 
 	}
