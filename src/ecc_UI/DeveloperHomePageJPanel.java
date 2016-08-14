@@ -33,24 +33,20 @@ public class DeveloperHomePageJPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public DeveloperHomePageJPanel(JFrame currentFrame, Employee employee) {
-		setBackground(Color.GRAY);
+		setBackground(Color.LIGHT_GRAY);
 		setForeground(new Color(165, 42, 42));
 		
 		setBounds(new Rectangle(0, 0, 900, 700));
 		setLayout(null);
 		
-		JLabel lblHomePage = new JLabel("Welcome to the ECC. Use the Menu bar for more options");
-		lblHomePage.setForeground(new Color(165, 42, 42));
+		JLabel lblHomePage = new JLabel("Welcome to the ECC! Record Worked Hours");
+		lblHomePage.setOpaque(true);
+		lblHomePage.setForeground(Color.WHITE);
 		lblHomePage.setBackground(new Color(165, 42, 42));
 		lblHomePage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHomePage.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-		lblHomePage.setBounds(6, 6, 888, 54);
+		lblHomePage.setBounds(0, 0, 900, 60);
 		add(lblHomePage);
-		
-		JLabel lblNewLabel = new JLabel("Record Hours");
-		lblNewLabel.setFont(new Font("Lucida Grande", Font.BOLD, 14));
-		lblNewLabel.setBounds(330, 70, 100, 30);
-		add(lblNewLabel);
 		
 		
 		ArrayList <String> projectsNames = new ArrayList<String>();
@@ -90,7 +86,7 @@ public class DeveloperHomePageJPanel extends JPanel {
 			}
 		};
 		
-		// initialize the timesheet model - if there is any timesheet line
+		// initialize the time sheet model - if there is any time sheet line
 		if (!(employee.getCurrentTimeSheet().getTimesheetlines().isEmpty())){
 			for (TimeSheetLine timeSheetLine : employee.getCurrentTimeSheet().getTimesheetlines()){
 				String date = timeSheetLine.getDate();
@@ -98,7 +94,7 @@ public class DeveloperHomePageJPanel extends JPanel {
 				String projectName = timeSheetLine.getProject();
 				int hours = timeSheetLine.getHours();
 				
-				// TODO: add this field to data (accessors)
+				// TODO: add this field to data (setters and getters)
 				Boolean verified = false;
 	
 				tableModel.addRow(new Object[]{date, employeeName, projectName, hours, verified});

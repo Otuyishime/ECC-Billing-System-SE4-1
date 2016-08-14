@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class MaintainCompanyJPanel extends JPanel {
 	private JTextField textField;
@@ -15,38 +17,44 @@ public class MaintainCompanyJPanel extends JPanel {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
+	private JTextField textField_5;
 
 	/**
 	 * Create the panel.
 	 */
 	public MaintainCompanyJPanel(JFrame currentFrame) {
+		setBackground(Color.LIGHT_GRAY);
 		
-		setBounds(new Rectangle(0, 0, 1100, 700));
+		setBounds(new Rectangle(0, 0, 900, 700));
 		setLayout(null);
 		
-		JLabel lblWelcomeToEagles = new JLabel("Maintian Compnay Data - You can edit and save the uptodate information about the compnay");
-		lblWelcomeToEagles.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-		lblWelcomeToEagles.setBounds(250, 50, 600, 40);
+		JLabel lblWelcomeToEagles = new JLabel("Update Company Information");
+		lblWelcomeToEagles.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWelcomeToEagles.setForeground(Color.WHITE);
+		lblWelcomeToEagles.setBackground(new Color(165, 42, 42));
+		lblWelcomeToEagles.setOpaque(true);
+		lblWelcomeToEagles.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+		lblWelcomeToEagles.setBounds(0, 0, 900, 60);
 		add(lblWelcomeToEagles);
 		
 		JLabel lblName = new JLabel("Name:");
-		lblName.setBounds(250, 120, 70, 30);
+		lblName.setBounds(275, 120, 45, 30);
 		add(lblName);
 		
-		JLabel lblAddress = new JLabel("Address:");
-		lblAddress.setBounds(250, 160, 70, 30);
+		JLabel lblAddress = new JLabel("Address Line 1:");
+		lblAddress.setBounds(220, 160, 100, 30);
 		add(lblAddress);
 		
-		JLabel lblCity = new JLabel("City:");
-		lblCity.setBounds(250, 200, 70, 30);
+		JLabel lblCity = new JLabel("Address Line 2:");
+		lblCity.setBounds(220, 200, 100, 30);
 		add(lblCity);
 		
-		JLabel lblState = new JLabel("State:");
-		lblState.setBounds(250, 240, 70, 30);
+		JLabel lblState = new JLabel("City:");
+		lblState.setBounds(285, 240, 35, 30);
 		add(lblState);
 		
-		JLabel lblZipCode = new JLabel("Zip code:");
-		lblZipCode.setBounds(250, 280, 70, 30);
+		JLabel lblZipCode = new JLabel("State:");
+		lblZipCode.setBounds(280, 280, 40, 30);
 		add(lblZipCode);
 		
 		textField = new JTextField();
@@ -75,11 +83,20 @@ public class MaintainCompanyJPanel extends JPanel {
 		textField_4.setColumns(10);
 		
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(320, 350, 100, 30);
+		btnCancel.setBounds(320, 386, 100, 30);
 		add(btnCancel);
 		
 		JButton btnUpdate = new JButton("Update");
-		btnUpdate.setBounds(431, 350, 100, 30);
+		btnUpdate.setBounds(470, 386, 100, 30);
 		add(btnUpdate);
+		
+		textField_5 = new JTextField();
+		textField_5.setBounds(320, 322, 250, 28);
+		add(textField_5);
+		textField_5.setColumns(10);
+		
+		JLabel lblZipCode_1 = new JLabel("Zip Code:");
+		lblZipCode_1.setBounds(255, 325, 61, 22);
+		add(lblZipCode_1);
 	}
 }

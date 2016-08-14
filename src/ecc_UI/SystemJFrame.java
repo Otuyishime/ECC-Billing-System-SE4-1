@@ -1,6 +1,7 @@
 package ecc_UI;
 import java.awt.EventQueue;
 
+import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -16,6 +17,7 @@ import utility.Credential;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class SystemJFrame extends JFrame {
 	public static Employee loggedInEmployee;
@@ -31,7 +33,7 @@ public class SystemJFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public SystemJFrame() {
-	
+
 		currentFrame = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Eagles Consulting Company");
@@ -124,8 +126,19 @@ public class SystemJFrame extends JFrame {
 		mnHelp = new JMenu("Help");
 		menuBar.add(mnHelp);
 
+		menuBar.add(Box.createHorizontalGlue());
+
+		JMenu mnLogin = new JMenu("loggedInUser");
+		mnLogin.setEnabled(false);
+		menuBar.add(mnLogin);
+
+		// add menu items
+		JMenuItem mntmAccount = new JMenuItem("account");
+		mnLogin.add(mntmAccount);
+
 		getContentPane().removeAll();
 		WelcomeJPanel welcomeJPanel = new WelcomeJPanel(currentFrame);
+		welcomeJPanel.setBackground(Color.LIGHT_GRAY);
 		getContentPane().add(welcomeJPanel);
 		getContentPane().revalidate();
 

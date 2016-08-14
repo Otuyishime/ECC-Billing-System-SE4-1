@@ -38,8 +38,12 @@ public class WelcomeJPanel extends JPanel {
 		setLayout(null);
 		
 		JLabel lblWelcomeToEagles = new JLabel("Welcome to Eagles Consulting Company!");
+		lblWelcomeToEagles.setBackground(new Color(165, 42, 42));
+		lblWelcomeToEagles.setOpaque(true);
+		lblWelcomeToEagles.setForeground(Color.WHITE);
+		lblWelcomeToEagles.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWelcomeToEagles.setFont(new Font("Lucida Grande", Font.PLAIN, 22));
-		lblWelcomeToEagles.setBounds(246, 146, 436, 40);
+		lblWelcomeToEagles.setBounds(0, 0, 900, 269);
 		add(lblWelcomeToEagles);
 		
 		JLabel lblUsername = new JLabel("Username:");
