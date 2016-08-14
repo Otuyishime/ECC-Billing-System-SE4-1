@@ -26,13 +26,13 @@ import javax.swing.table.DefaultTableModel;
 
 import java.awt.Color;
 
-public class HomePageJPanel extends JPanel {
+public class DeveloperHomePageJPanel extends JPanel {
 	private JTextField hours_textField;
 
 	/**
 	 * Create the panel.
 	 */
-	public HomePageJPanel(JFrame currentFrame, Employee employee) {
+	public DeveloperHomePageJPanel(JFrame currentFrame, Employee employee) {
 		setBackground(Color.GRAY);
 		setForeground(new Color(165, 42, 42));
 		
@@ -131,6 +131,10 @@ public class HomePageJPanel extends JPanel {
 		});
 		btnSave.setBounds(450, 180, 80, 30);
 		add(btnSave);
+		
+		JLabel lblTimeSheet = new JLabel("Time Sheet");
+		lblTimeSheet.setBounds(20, 235, 860, 30);
+		add(lblTimeSheet);
 		
 	}
 }

@@ -16,10 +16,13 @@ import javax.swing.JButton;
 import testECC.Employee;
 import testECC.testMain;
 import utility.Credential;
+import utility.SimpleRole;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+
+import javax.swing.SwingConstants;
 
 public class WelcomeJPanel extends JPanel {
 	private JTextField usernameField;
@@ -56,6 +59,11 @@ public class WelcomeJPanel extends JPanel {
 		passwordField.setBounds(380, 340, 200, 30);
 		add(passwordField);
 		
+		JLabel lbl_loginfail = new JLabel("");
+		lbl_loginfail.setForeground(Color.RED);
+		lbl_loginfail.setBounds(542, 382, 212, 30);
+		add(lbl_loginfail);
+		
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -70,8 +78,6 @@ public class WelcomeJPanel extends JPanel {
 				cred.setPassword(password);
 				
 				Employee employee = testMain.logIn(cred);
-				employee.print();
-				//loggedInEmployee = testMain.logIn(cred);
 			
 				if (!(employee == null))
 				{
@@ -80,32 +86,31 @@ public class WelcomeJPanel extends JPanel {
 					currentFrame.getJMenuBar().getMenu(2).setEnabled(true);
 					currentFrame.getJMenuBar().getMenu(3).setEnabled(true);
 					System.out.println("Successfully logged in - username: " + username + " - pwd: " + password);
-					JOptionPane.showMessageDialog(currentFrame,
-						    "You are successfully Logged in!",
-						    "Login Success",
-						    JOptionPane.INFORMATION_MESSAGE);
 					
 					((SystemJFrame)currentFrame).loggedInEmployee = testMain.logIn(cred);;
 					
 					System.out.println("------- " + ((SystemJFrame)currentFrame).loggedInEmployee.getName());
 					
-					currentFrame.getContentPane().removeAll();
-					HomePageJPanel homepageJPanel = new HomePageJPanel(currentFrame, employee);
-					currentFrame.getContentPane().add(homepageJPanel);
-					currentFrame.getContentPane().revalidate();
+					if (employee.getRole().equals(SimpleRole.DEVELOPER)){
+						currentFrame.getContentPane().removeAll();
+						DeveloperHomePageJPanel homepageJPanel = new DeveloperHomePageJPanel(currentFrame, employee);
+						currentFrame.getContentPane().add(homepageJPanel);
+						currentFrame.getContentPane().revalidate();
+					}
+					else if(employee.getRole().equals(SimpleRole.PROJECTMANAGER)){
+						
+					}
+					else{
+						
+					}
 				}
 				else
 				{
-					System.out.println("Logg in Failed. Wrong credentails");
-					JOptionPane.showMessageDialog(currentFrame,
-						    "Logg in Failed. Wrong credentails",
-						    "Login Error",
-						    JOptionPane.ERROR_MESSAGE);
+					lbl_loginfail.setText("Login failed. Wrong credentials!");
 				}
 			}
 		});
 		btnLogin.setBounds(430, 380, 100, 30);
 		add(btnLogin);
-
 	}
 }
