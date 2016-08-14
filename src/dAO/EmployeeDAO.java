@@ -12,11 +12,11 @@ import javax.persistence.Query;
 public class EmployeeDAO
 {
 	public static void saveEmployee(Employee employee) {
-		EM.getEM().persist(employee);
+		EM.INSTANCE.getEM().persist(employee);
 	}
 	
-	public static int  updateEmployee(String columnname, String fromvalue, String tovalue) {
-		Query query = EM.getEM().createQuery("UPDATE " + Employee.class.getName() + " SET " + 
+	public  int  updateEmployee(String columnname, String fromvalue, String tovalue) {
+		Query query = EM.INSTANCE.getEM().createQuery("UPDATE " + Employee.class.getName() + " SET " + 
 				columnname + " = " + tovalue + " WHERE " + columnname + " = " + fromvalue);
 		int success = query.executeUpdate();
 		return success;
@@ -24,26 +24,26 @@ public class EmployeeDAO
 	
 	public static void addEmployee(Employee employee) {
 		if (findEmployeeById(employee.getId()) == null){
-			EM.getEM().persist(employee);
+			EM.INSTANCE.getEM().persist(employee);
 		}
 	}
 
 	public static ArrayList<Employee> listEmployees() {
-		Query query = EM.getEM().createQuery("SELECT employee FROM " + Employee.class.getName() + " employee");
+		Query query = EM.INSTANCE.getEM().createQuery("SELECT employee FROM " + Employee.class.getName() + " employee");
 		ArrayList<Employee> list= new ArrayList<Employee>(query.getResultList());
 
 		return list;
 	}
 
 	public static Employee findEmployeeById(long id) {
-		Employee employee = EM.getEM().find(Employee.class, new Long(id));
+		Employee employee = EM.INSTANCE.getEM().find(Employee.class, new Long(id));
 		return employee;
 	}
 
 	public static void removeEmployee(long id) {
 		Employee employee = findEmployeeById(id);
 		if ( employee != null){
-			EM.getEM().remove(employee);
+			EM.INSTANCE.getEM().remove(employee);
 			return;
 		}
 		System.out.println("Unable to delete the employee");

@@ -4,19 +4,20 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 // entity manger 
-public class EM {
-	static EntityManagerFactory entityManagerFactory;
-	static EntityManager em;
+public enum EM {
+	INSTANCE;
+	private  EntityManagerFactory entityManagerFactory;
+	private EntityManager em;
 	
-	public static void initEM()
+	public  void initEM()
 	{
-	entityManagerFactory =  Persistence.createEntityManagerFactory("testECC");
-    em = entityManagerFactory.createEntityManager();
+	this.entityManagerFactory =  Persistence.createEntityManagerFactory("testECC");
+    this.em = entityManagerFactory.createEntityManager();
 	}
 	
-	public static EntityManager getEM()
+	public  EntityManager getEM()
 	{
-		if (em==null)
+		if (this.em==null)
 		{ 
 			initEM();
 		
@@ -24,9 +25,9 @@ public class EM {
 		return em;
 	}
 	
-	public static void close()
+	public  void close()
 	{
-		em.close();
-	    entityManagerFactory.close();
+		this.em.close();
+	    this.entityManagerFactory.close();
 	}
 }
