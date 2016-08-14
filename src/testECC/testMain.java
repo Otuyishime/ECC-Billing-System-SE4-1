@@ -1,5 +1,6 @@
 package testECC;
 
+import java.awt.EventQueue;
 import java.util.List;
 import java.util.Scanner;
 
@@ -7,6 +8,7 @@ import utility.Credential;
 import utility.Settings;
 import dAO.*;
 import dM.EccDM_Helper;
+import ecc_UI.SystemJFrame;
 
 public class testMain {
 
@@ -36,48 +38,17 @@ public class testMain {
 
 		// Initialize the system
 		initSystem();
-
-		System.out.println("Login:");
-
-		String username, password; 
-		Scanner input = new Scanner(System.in);
-
-		System.out.print("Enter user name: ");
-		username = input.nextLine();
-		System.out.print("Enter password: ");
-		password = input.nextLine();
-
-		Credential cred = new Credential();
-		cred.setUsername(username);
-		cred.setPassword(password);
-
-		Employee e = logIn(cred);
-		if ( e != null ){
-			System.out.println("Successfully logged in! ...");
-			System.out.println("User: ");
-			e.print();
-			System.out.println("Logged in ...\n");
-
-			// test settings
-			// Write start session
-			Settings.writeStartSession(e.getName());
-			
-			// test add worked hours
-			if (Company.EnterHours(e, e.getProjects().get(0).getName(), 7)){
-				System.out.println("Worked hours successfully recorded for project 1! ...");
+		
+		// start the main system frame
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					SystemJFrame frame = new SystemJFrame();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
-			
-			// Write end session
-			Settings.writeEndSession();
-
-			System.out.println("Working on these projects ...");
-			for( Project p : e.getProjects()){
-				p.print();
-			}
-
-		}
-		else{
-			System.out.println("Loggin failed! ...");
-		}
+		});
 	}
 }
