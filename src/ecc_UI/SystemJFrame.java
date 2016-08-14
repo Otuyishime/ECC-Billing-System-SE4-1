@@ -27,41 +27,11 @@ public class SystemJFrame extends JFrame {
 	JMenu mnReports;
 	JMenu mnHelp;
 
-	LoginJDialogue loginJDialogue;
-
 	/**
 	 * Create the frame.
 	 */
 	public SystemJFrame() {
-
-		/*
-		JTextField username = new JTextField();
-		JTextField password = new JPasswordField();
-		Object[] message = {
-				"Username:", username,
-				"Password:", password
-		};
-		int option = JOptionPane.showConfirmDialog(null, message, "Login", JOptionPane.OK_CANCEL_OPTION);
-		if (option == JOptionPane.OK_OPTION) {
-			System.out.println("username: "+ username.getText() + " - pass: " + password.getText());
-
-			Credential cred = new Credential();
-			cred.setUsername(username.getText());
-			cred.setPassword(password.getText());
-
-			loggedInEmployee = testMain.logIn(cred);
-
-			if (!(loggedInEmployee == null)){
-				
-			}
-			else{
-			}
-
-		} else {
-			System.out.println("Login canceled");
-		}
-		*/
-		
+	
 		currentFrame = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Eagles Consulting Company");
@@ -160,5 +130,4 @@ public class SystemJFrame extends JFrame {
 		getContentPane().revalidate();
 
 	}
-
 }
