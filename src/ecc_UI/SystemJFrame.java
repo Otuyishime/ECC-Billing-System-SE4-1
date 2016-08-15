@@ -79,7 +79,7 @@ public class SystemJFrame extends JFrame {
 				// TODO - this is to be completed
 
 				getContentPane().removeAll();
-				MaintainCompanyJPanel maintaincompanyJPanelJPanel = new MaintainCompanyJPanel(currentFrame);
+				MaintainCompanyJPanel maintaincompanyJPanelJPanel = new MaintainCompanyJPanel(currentFrame, loggedInEmployee.getCompany());
 				getContentPane().add(maintaincompanyJPanelJPanel);
 				getContentPane().revalidate();
 			}

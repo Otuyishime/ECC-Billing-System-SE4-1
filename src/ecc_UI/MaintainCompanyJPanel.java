@@ -8,21 +8,28 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
 import java.awt.Color;
+
 import javax.swing.SwingConstants;
+import javax.swing.JComboBox;
+
+import testECC.Company;
+import utility.SimpleStates;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MaintainCompanyJPanel extends JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
+	private JTextField textField_name;
+	private JTextField textField_address1;
+	private JTextField textField_address2;
+	private JTextField textField_city;
+	private JTextField textField_zip;
 
 	/**
 	 * Create the panel.
 	 */
-	public MaintainCompanyJPanel(JFrame currentFrame) {
+	public MaintainCompanyJPanel(JFrame currentFrame, Company company) {
 		setBackground(Color.LIGHT_GRAY);
 		
 		setBounds(new Rectangle(0, 0, 900, 700));
@@ -57,46 +64,56 @@ public class MaintainCompanyJPanel extends JPanel {
 		lblZipCode.setBounds(280, 280, 40, 30);
 		add(lblZipCode);
 		
-		textField = new JTextField();
-		textField.setBounds(320, 120, 250, 30);
-		add(textField);
-		textField.setColumns(10);
+		textField_name = new JTextField(company.getName());
+		textField_name.setBounds(320, 120, 250, 30);
+		add(textField_name);
+		textField_name.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(320, 160, 250, 30);
-		add(textField_1);
-		textField_1.setColumns(10);
+		textField_address1 = new JTextField(company.getCompanyAddressline1());
+		textField_address1.setBounds(320, 160, 250, 30);
+		add(textField_address1);
+		textField_address1.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(320, 200, 250, 30);
-		add(textField_2);
-		textField_2.setColumns(10);
+		textField_address2 = new JTextField(company.getCompanyAddressline2());
+		textField_address2.setBounds(320, 200, 250, 30);
+		add(textField_address2);
+		textField_address2.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(320, 240, 250, 30);
-		add(textField_3);
-		textField_3.setColumns(10);
-		
-		textField_4 = new JTextField();
-		textField_4.setBounds(320, 280, 250, 30);
-		add(textField_4);
-		textField_4.setColumns(10);
+		textField_city = new JTextField(company.getCity());
+		textField_city.setBounds(320, 240, 250, 30);
+		add(textField_city);
+		textField_city.setColumns(10);
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(320, 386, 100, 30);
 		add(btnCancel);
 		
 		JButton btnUpdate = new JButton("Update");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// update comany's information
+			}
+		});
 		btnUpdate.setBounds(470, 386, 100, 30);
 		add(btnUpdate);
-		
-		textField_5 = new JTextField();
-		textField_5.setBounds(320, 322, 250, 28);
-		add(textField_5);
-		textField_5.setColumns(10);
 		
 		JLabel lblZipCode_1 = new JLabel("Zip Code:");
 		lblZipCode_1.setBounds(255, 325, 61, 22);
 		add(lblZipCode_1);
+		
+		textField_zip = new JTextField(company.getZip());
+		textField_zip.setBounds(320, 322, 250, 30);
+		add(textField_zip);
+		textField_zip.setColumns(10);
+		
+		JComboBox comboBox_states = new JComboBox(SimpleStates.states);
+		comboBox_states.setBounds(320, 283, 250, 30);
+		if (company.getState().equals("OK")){
+			comboBox_states.setSelectedItem("Oklahoma");
+		}
+		else{
+			comboBox_states.setSelectedItem(company.getState());
+		}
+		add(comboBox_states);
 	}
 }
