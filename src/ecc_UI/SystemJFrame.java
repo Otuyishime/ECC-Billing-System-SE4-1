@@ -8,23 +8,41 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import dAO.CompanyDAO;
+import dAO.EmployeeDAO;
+import billingProjectModel.MainFrameQuery;
+import billingProjectModel.MainFrameServiceImp;
+import billingProjectModel.MainFrameServiceImp;
+import testECC.Company;
+import testECC.Employee;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 public class SystemJFrame extends JFrame {
 	private JFrame currentFrame;
+	private MainFrameQuery mainFrameQuery;
+	private MainFrameServiceImp mainFrameServiceImpl;
+	private UserAccountJPanel userAcctountJpanel;
 	JMenuBar menuBar;
 	JMenu mnSystem;
 	JMenu mnMaintain;
 	JMenu mnInvoice;
 	JMenu mnReports;
 	JMenu mnHelp;
+	
 
 	/**
 	 * Create the frame.
 	 */
 	public SystemJFrame() {
 		currentFrame = this;
+		this.userAcctountJpanel =  new UserAccountJPanel(currentFrame);
+		//this.refreshTableEmployeeTable();
+
+		
+		//this.mainFrameServiceImpl= new MainFrameServiceImp();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Eagles Consulting Company");
 		setBounds(100, 0, 900, 700);
@@ -57,7 +75,6 @@ public class SystemJFrame extends JFrame {
 			}
 		});
 		mnSystem.add(mntmLogout);
-		
 		mnMaintain = new JMenu("Maintain");
 		mnMaintain.setEnabled(false);
 		menuBar.add(mnMaintain);
@@ -90,8 +107,22 @@ public class SystemJFrame extends JFrame {
 		});
 		mnMaintain.add(mntmProjects);
 		
+		
 		JMenuItem mntmEmployees = new JMenuItem("Employees");
 		mnMaintain.add(mntmEmployees);
+		
+		mntmEmployees.addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent arg0) {
+				
+			getContentPane().removeAll();
+			userAcctountJpanel= new UserAccountJPanel(currentFrame);
+			getContentPane().add(userAcctountJpanel);
+			getContentPane().revalidate();
+			}	
+		});
+		mnMaintain.add(mntmEmployees);
+
 		
 		mnInvoice = new JMenu("Invoice");
 		mnInvoice.setEnabled(false);
@@ -121,5 +152,7 @@ public class SystemJFrame extends JFrame {
 		getContentPane().add(welcomeJPanel);
 		getContentPane().revalidate();
 	}
+	
+	
 
 }

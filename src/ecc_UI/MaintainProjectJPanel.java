@@ -38,7 +38,7 @@ public class MaintainProjectJPanel extends JPanel {
 		lblMaintain.setBounds(100, 20, 200, 40);
 		add(lblMaintain);
 		
-		listModel_projects = new DefaultListModel<>();
+		//listModel_projects = new DefaultListModel<>();
 		
 		ArrayList<String> projects = new ArrayList();
 		for (int i = 0; i < 5; i++){

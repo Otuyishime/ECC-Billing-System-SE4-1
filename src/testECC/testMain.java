@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import java.util.List;
 import java.util.Scanner;
 
+import billingProjectModel.MainFrameService;
+import billingProjectModel.MainFrameServiceImp;
 import utility.Credential;
 import utility.Settings;
 import dAO.*;
@@ -14,10 +16,13 @@ public class testMain {
 
 	private static List<Credential> credentials;
 	private static List<Company> companies;
+	private static MainFrameService mainFrameService;
+	private static List<Employee> employees;
 
 	public static void initSystem(){
 		credentials = CredentialDAO.listCredentials();
 		companies = CompanyDAO.listCompanies();
+		employees=EmployeeDAO.listEmployees();
 
 		if( companies.isEmpty()){
 			EccDM_Helper.loadData();
@@ -35,14 +40,16 @@ public class testMain {
 	}
 
 	public static void main(String[] args) {
+		initSystem();
+
 
 		// Initialize the system
-		initSystem();
 		
 		// start the main system frame
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					SystemJFrame frame = new SystemJFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
