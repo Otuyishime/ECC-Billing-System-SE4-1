@@ -9,7 +9,7 @@ import javax.persistence.Query;
 public class InvoiceLineDAO 
 {
 	public static void saveInvoiceLine(InvoiceLine invoiceline) {
-		EM.getEM().persist(invoiceline);
+		EM.INSTANCE.getEM().persist(invoiceline);
 	}
 	
 	public static int  updateInvoiceLine(String columnname, String fromvalue, String tovalue) {
@@ -20,7 +20,7 @@ public class InvoiceLineDAO
 			return success;
 		}else{
 
-			Query query = EM.getEM().createQuery("UPDATE " + InvoiceLine.class.getName() + " SET " + 
+			Query query = EM.INSTANCE.getEM().createQuery("UPDATE " + InvoiceLine.class.getName() + " SET " + 
 					columnname + " = " + tovalue + " WHERE " + columnname + " = " + fromvalue);
 			success = query.executeUpdate();
 		}
@@ -30,26 +30,26 @@ public class InvoiceLineDAO
 	
 	public static void addInvoiceLine(InvoiceLine invoiceline) {
 		if ( findInvoiceLineById(invoiceline.getId()) == null){
-			EM.getEM().persist(invoiceline);
+			EM.INSTANCE.getEM().persist(invoiceline);
 		}
 	}
 
 	public static ArrayList<InvoiceLine> listInvoiceLines() {
-		Query query = EM.getEM().createQuery("SELECT project FROM " + InvoiceLine.class.getName() + " project", InvoiceLine.class);
+		Query query = EM.INSTANCE.getEM().createQuery("SELECT project FROM " + InvoiceLine.class.getName() + " project", InvoiceLine.class);
 		ArrayList<InvoiceLine> list= new ArrayList<InvoiceLine>(query.getResultList());
 
 		return list;
 	}
 
 	public static InvoiceLine findInvoiceLineById(long id) {
-		InvoiceLine invoiceline = EM.getEM().find(InvoiceLine.class, new Long(id));
+		InvoiceLine invoiceline = EM.INSTANCE.getEM().find(InvoiceLine.class, new Long(id));
 		return invoiceline;
 	}
 
 	public static void removeInvoiceLineById(long id) {
 		InvoiceLine invoiceline = findInvoiceLineById(id);
 		if ( invoiceline != null){
-			EM.getEM().remove(invoiceline);
+			EM.INSTANCE.getEM().remove(invoiceline);
 			return;
 		}
 		System.out.println("Unable to delete the invoiceline");

@@ -169,7 +169,7 @@ public class EccDM_Helper
 		if( connectObjects()){
 			
 			// Obtains Session
-			EntityTransaction userTransaction = EM.getEM().getTransaction();
+			EntityTransaction userTransaction = EM.INSTANCE.getEM().getTransaction();
 			userTransaction.begin();
 			
 			// persist all the data
@@ -177,20 +177,20 @@ public class EccDM_Helper
 			System.out.println();
 			System.out.println("Persisting the company...");
 			
-			EM.getEM().persist(companies.get(0));
+			EM.INSTANCE.getEM().persist(companies.get(0));
 			
 			// persist the clients ------------
 			System.out.println();
 			System.out.println("Persisting all clients...");
 			for( Client client : clients){
-				EM.getEM().persist(client);
+				EM.INSTANCE.getEM().persist(client);
 			}
 			
 			// persist the projects ------------
 			System.out.println();
 			System.out.println("Persisting all projects...");
 			for( Project project : projects){
-				EM.getEM().persist(project);
+				EM.INSTANCE.getEM().persist(project);
 			}
 			
 			// persist the employees ------------
@@ -198,7 +198,7 @@ public class EccDM_Helper
 			System.out.println("Persisting all employees...");
 			for( Employee employee : employees){
 				
-				EM.getEM().persist(employee);
+				EM.INSTANCE.getEM().persist(employee);
 			}
 			
 			// persist the credentials ------------
@@ -206,11 +206,11 @@ public class EccDM_Helper
 			System.out.println("Persisting all credentials...");
 			for( Credential credential : credentials){
 				
-				EM.getEM().persist(credential);
+				EM.INSTANCE.getEM().persist(credential);
 			}
 			
 			userTransaction.commit();
-			EM.getEM().close();
+			EM.INSTANCE.getEM().close();
 		}
 	}
 	

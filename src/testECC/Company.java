@@ -205,16 +205,16 @@ public class Company
 			loggedinemployee.getTimesheets().add(timesheet);
 
 			// Obtains Session
-			EntityTransaction userTransaction = EM.getEM().getTransaction();
+			EntityTransaction userTransaction = EM.INSTANCE.getEM().getTransaction();
 			userTransaction.begin();
 
 			// persist the objects
-			EM.getEM().persist(loggedinemployee);
-			EM.getEM().persist(timesheet);
-			EM.getEM().persist(timesheetline);
+			EM.INSTANCE.getEM().persist(loggedinemployee);
+			EM.INSTANCE.getEM().persist(timesheet);
+			EM.INSTANCE.getEM().persist(timesheetline);
 
 			userTransaction.commit();
-			EM.getEM().close();	// close session
+			EM.INSTANCE.getEM().close();	// close session
 
 			success = true;
 			return success;
@@ -238,14 +238,14 @@ public class Company
 				timesheet.setSubmitted(submit);
 
 				// Obtains Session
-				EntityTransaction userTransaction = EM.getEM().getTransaction();
+				EntityTransaction userTransaction = EM.INSTANCE.getEM().getTransaction();
 				userTransaction.begin();
 
 				// persist the time sheet
-				EM.getEM().persist(timesheet);
+				EM.INSTANCE.getEM().persist(timesheet);
 
 				userTransaction.commit();
-				EM.getEM().close();	// close session
+				EM.INSTANCE.getEM().close();	// close session
 
 				success = true;
 				return success;
@@ -269,15 +269,15 @@ public class Company
 			company.getEmployees().add(newemployee);
 
 			// Obtains Session
-			EntityTransaction userTransaction = EM.getEM().getTransaction();
+			EntityTransaction userTransaction = EM.INSTANCE.getEM().getTransaction();
 			userTransaction.begin();
 
 			// persist the objects
-			EM.getEM().persist(company);
-			EM.getEM().persist(newemployee);
+			EM.INSTANCE.getEM().persist(company);
+			EM.INSTANCE.getEM().persist(newemployee);
 
 			userTransaction.commit();
-			EM.getEM().close();	// close session
+			EM.INSTANCE.getEM().close();	// close session
 
 			success = true;
 			return success;
@@ -300,15 +300,15 @@ public class Company
 			company.getClients().add(newclient);
 
 			// Obtains Session
-			EntityTransaction userTransaction = EM.getEM().getTransaction();
+			EntityTransaction userTransaction = EM.INSTANCE.getEM().getTransaction();
 			userTransaction.begin();
 
 			// persist the objects
-			EM.getEM().persist(company);
-			EM.getEM().persist(newclient);
+			EM.INSTANCE.getEM().persist(company);
+			EM.INSTANCE.getEM().persist(newclient);
 
 			userTransaction.commit();
-			EM.getEM().close();	// close session
+			EM.INSTANCE.getEM().close();	// close session
 
 			success = true;
 			return success;
@@ -331,15 +331,15 @@ public class Company
 			company.getProjects().add(newproject);
 
 			// Obtains Session
-			EntityTransaction userTransaction = EM.getEM().getTransaction();
+			EntityTransaction userTransaction = EM.INSTANCE.getEM().getTransaction();
 			userTransaction.begin();
 
 			// persist the objects
-			EM.getEM().persist(company);
-			EM.getEM().persist(newproject);
+			EM.INSTANCE.getEM().persist(company);
+			EM.INSTANCE.getEM().persist(newproject);
 
 			userTransaction.commit();
-			EM.getEM().close();	// close session
+			EM.INSTANCE.getEM().close();	// close session
 
 			success = true;
 			return success;
@@ -357,14 +357,14 @@ public class Company
 		}
 		else if( company != null){
 			// Obtains Session
-			EntityTransaction userTransaction = EM.getEM().getTransaction();
+			EntityTransaction userTransaction = EM.INSTANCE.getEM().getTransaction();
 			userTransaction.begin();
 
 			// persist the objects
-			EM.getEM().persist(company);
+			EM.INSTANCE.getEM().persist(company);
 
 			userTransaction.commit();
-			EM.getEM().close();	// close session
+			EM.INSTANCE.getEM().close();	// close session
 
 			success = true;
 			return success;
@@ -382,14 +382,14 @@ public class Company
 		}
 		else if(client != null){
 			// Obtains Session
-			EntityTransaction userTransaction = EM.getEM().getTransaction();
+			EntityTransaction userTransaction = EM.INSTANCE.getEM().getTransaction();
 			userTransaction.begin();
 
 			// persist the objects
-			EM.getEM().persist(client);
+			EM.INSTANCE.getEM().persist(client);
 
 			userTransaction.commit();
-			EM.getEM().close();	// close session
+			EM.INSTANCE.getEM().close();	// close session
 
 			success = true;
 			return success;
@@ -408,14 +408,14 @@ public class Company
 		else if( project != null){
 			
 			// Obtains Session
-			EntityTransaction userTransaction = EM.getEM().getTransaction();
+			EntityTransaction userTransaction = EM.INSTANCE.getEM().getTransaction();
 			userTransaction.begin();
 
 			// persist the objects
-			EM.getEM().persist(project);
+			EM.INSTANCE.getEM().persist(project);
 
 			userTransaction.commit();
-			EM.getEM().close();	// close session
+			EM.INSTANCE.getEM().close();	// close session
 
 			success = true;
 			return success;
@@ -434,14 +434,14 @@ public class Company
 		else if( employee != null){
 			
 			// Obtains Session
-			EntityTransaction userTransaction = EM.getEM().getTransaction();
+			EntityTransaction userTransaction = EM.INSTANCE.getEM().getTransaction();
 			userTransaction.begin();
 
 			// persist the objects
-			EM.getEM().persist(employee);
+			EM.INSTANCE.getEM().persist(employee);
 
 			userTransaction.commit();
-			EM.getEM().close();	// close session
+			EM.INSTANCE.getEM().close();	// close session
 
 			success = true;
 			return success;
