@@ -16,42 +16,57 @@ import javax.swing.JButton;
 import testECC.Employee;
 import testECC.testMain;
 import utility.Credential;
+import utility.SimpleRole;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+
+import javax.swing.SwingConstants;
 
 public class WelcomeJPanel extends JPanel {
 	private JTextField usernameField;
 	private JPasswordField passwordField;
+	//private static Employee loggedInEmployee;
 
 	/**
 	 * Create the panel.
 	 */
 	public WelcomeJPanel(final JFrame currentFrame) {
-		setBounds(new Rectangle(0, 0, 1100, 700));
+		setBackground(Color.GRAY);
+		setBounds(new Rectangle(0, 0, 900, 700));
 		setLayout(null);
 		
-		JLabel lblWelcomeToEagles = new JLabel("Welcome to Eagles Consulting Company! Login for access.");
-		lblWelcomeToEagles.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-		lblWelcomeToEagles.setBounds(225, 83, 538, 40);
+		JLabel lblWelcomeToEagles = new JLabel("Welcome to Eagles Consulting Company!");
+		lblWelcomeToEagles.setBackground(new Color(165, 42, 42));
+		lblWelcomeToEagles.setOpaque(true);
+		lblWelcomeToEagles.setForeground(Color.WHITE);
+		lblWelcomeToEagles.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWelcomeToEagles.setFont(new Font("Lucida Grande", Font.PLAIN, 22));
+		lblWelcomeToEagles.setBounds(0, 0, 900, 269);
 		add(lblWelcomeToEagles);
 		
 		JLabel lblUsername = new JLabel("Username:");
-		lblUsername.setBounds(300, 180, 70, 30);
+		lblUsername.setBounds(300, 300, 70, 30);
 		add(lblUsername);
 		
 		JLabel lblPassword = new JLabel("Password:");
-		lblPassword.setBounds(300, 220, 70, 30);
+		lblPassword.setBounds(300, 340, 70, 30);
 		add(lblPassword);
 		
 		usernameField = new JTextField();
-		usernameField.setBounds(380, 180, 150, 30);
+		usernameField.setBounds(380, 300, 200, 30);
 		add(usernameField);
 		usernameField.setColumns(10);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(380, 220, 150, 30);
+		passwordField.setBounds(380, 340, 200, 30);
 		add(passwordField);
+		
+		JLabel lbl_loginfail = new JLabel("");
+		lbl_loginfail.setForeground(Color.RED);
+		lbl_loginfail.setBounds(542, 382, 212, 30);
+		add(lbl_loginfail);
 		
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
@@ -75,28 +90,31 @@ public class WelcomeJPanel extends JPanel {
 					currentFrame.getJMenuBar().getMenu(2).setEnabled(true);
 					currentFrame.getJMenuBar().getMenu(3).setEnabled(true);
 					System.out.println("Successfully logged in - username: " + username + " - pwd: " + password);
-					JOptionPane.showMessageDialog(currentFrame,
-						    "You are successfully Logged in!",
-						    "Login Success",
-						    JOptionPane.INFORMATION_MESSAGE);
 					
-					currentFrame.getContentPane().removeAll();
-					HomePageJPanel homepageJPanel = new HomePageJPanel(currentFrame, employee);
-					currentFrame.getContentPane().add(homepageJPanel);
-					currentFrame.getContentPane().revalidate();
+					((SystemJFrame)currentFrame).loggedInEmployee = testMain.logIn(cred);;
+					
+					System.out.println("------- " + ((SystemJFrame)currentFrame).loggedInEmployee.getName());
+					
+					if (employee.getRole().equals(SimpleRole.DEVELOPER)){
+						currentFrame.getContentPane().removeAll();
+						DeveloperHomePageJPanel homepageJPanel = new DeveloperHomePageJPanel(currentFrame, employee);
+						currentFrame.getContentPane().add(homepageJPanel);
+						currentFrame.getContentPane().revalidate();
+					}
+					else if(employee.getRole().equals(SimpleRole.PROJECTMANAGER)){
+						
+					}
+					else{
+						
+					}
 				}
 				else
 				{
-					System.out.println("Logg in Failed. Wrong credentails");
-					JOptionPane.showMessageDialog(currentFrame,
-						    "Logg in Failed. Wrong credentails",
-						    "Login Error",
-						    JOptionPane.ERROR_MESSAGE);
+					lbl_loginfail.setText("Login failed. Wrong credentials!");
 				}
 			}
 		});
-		btnLogin.setBounds(450, 262, 80, 30);
+		btnLogin.setBounds(430, 380, 100, 30);
 		add(btnLogin);
-
 	}
 }

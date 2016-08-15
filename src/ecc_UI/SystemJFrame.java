@@ -1,12 +1,19 @@
 package ecc_UI;
 import java.awt.EventQueue;
 
+import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import testECC.Employee;
+import testECC.testMain;
+import utility.Credential;
 
 import dAO.CompanyDAO;
 import dAO.EmployeeDAO;
@@ -18,9 +25,14 @@ import testECC.Employee;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+<<<<<<< HEAD
 import java.util.List;
+=======
+import java.awt.Color;
+>>>>>>> branch 'master' of https://github.com/Otuyishime/ECC-Billing-System-SE4-1.git
 
 public class SystemJFrame extends JFrame {
+	public static Employee loggedInEmployee;
 	private JFrame currentFrame;
 	private MainFrameQuery mainFrameQuery;
 	private MainFrameServiceImp mainFrameServiceImpl;
@@ -37,6 +49,7 @@ public class SystemJFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public SystemJFrame() {
+
 		currentFrame = this;
 		this.userAcctountJpanel =  new UserAccountJPanel(currentFrame);
 		//this.refreshTableEmployeeTable();
@@ -46,45 +59,49 @@ public class SystemJFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Eagles Consulting Company");
 		setBounds(100, 0, 900, 700);
-		
+
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		
+
 		mnSystem = new JMenu("System");
 		mnSystem.setEnabled(false);
 		menuBar.add(mnSystem);
-		
+
 		JMenuItem mntmLogout = new JMenuItem("Logout");
 		mntmLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int response = JOptionPane.showConfirmDialog(null, "are you sure you want to logout?", "Confirm Logout",
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-				
+
 				if (response == JOptionPane.YES_OPTION){
 					mnSystem.setEnabled(false);
 					mnMaintain.setEnabled(false);
 					mnInvoice.setEnabled(false);
 					mnReports.setEnabled(false);
-					
+
 					getContentPane().removeAll();
 					WelcomeJPanel welcomeJPanel = new WelcomeJPanel(currentFrame);
 					getContentPane().add(welcomeJPanel);
 					getContentPane().revalidate();
-				    System.out.println("No button clicked");	
+					System.out.println("No button clicked");	
 				}
 			}
 		});
 		mnSystem.add(mntmLogout);
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/Otuyishime/ECC-Billing-System-SE4-1.git
 		mnMaintain = new JMenu("Maintain");
 		mnMaintain.setEnabled(false);
 		menuBar.add(mnMaintain);
-		
+
 		JMenuItem mntmCompany = new JMenuItem("Company");
 		mntmCompany.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				// TODO - this is to be completed
-				
+
 				getContentPane().removeAll();
 				MaintainCompanyJPanel maintaincompanyJPanelJPanel = new MaintainCompanyJPanel(currentFrame);
 				getContentPane().add(maintaincompanyJPanelJPanel);
@@ -92,24 +109,29 @@ public class SystemJFrame extends JFrame {
 			}
 		});
 		mnMaintain.add(mntmCompany);
-		
+
 		JMenuItem mntmClients = new JMenuItem("Clients");
 		mnMaintain.add(mntmClients);
-		
+
 		JMenuItem mntmProjects = new JMenuItem("Projects");
 		mntmProjects.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				getContentPane().removeAll();
-				MaintainProjectJPanel maintainProjectJPanel = new MaintainProjectJPanel(currentFrame);
+				MaintainProjectJPanel maintainProjectJPanel = new MaintainProjectJPanel(currentFrame, loggedInEmployee);
 				getContentPane().add(maintainProjectJPanel);
 				getContentPane().revalidate();
 			}
 		});
 		mnMaintain.add(mntmProjects);
+<<<<<<< HEAD
 		
 		
+=======
+
+>>>>>>> branch 'master' of https://github.com/Otuyishime/ECC-Billing-System-SE4-1.git
 		JMenuItem mntmEmployees = new JMenuItem("Employees");
 		mnMaintain.add(mntmEmployees);
+<<<<<<< HEAD
 		
 		mntmEmployees.addActionListener(new ActionListener(){
 
@@ -124,35 +146,53 @@ public class SystemJFrame extends JFrame {
 		mnMaintain.add(mntmEmployees);
 
 		
+=======
+
+>>>>>>> branch 'master' of https://github.com/Otuyishime/ECC-Billing-System-SE4-1.git
 		mnInvoice = new JMenu("Invoice");
 		mnInvoice.setEnabled(false);
 		menuBar.add(mnInvoice);
-		
+
 		JMenuItem mntmGenerateInvoice = new JMenuItem("Generate Invoice");
 		mnInvoice.add(mntmGenerateInvoice);
-		
+
 		JMenuItem mntmSendInvoice = new JMenuItem("Send Invoice");
 		mnInvoice.add(mntmSendInvoice);
-		
+
 		mnReports = new JMenu("Reports");
 		mnReports.setEnabled(false);
 		menuBar.add(mnReports);
-		
+
 		JMenuItem mntmTimesheets = new JMenuItem("Timesheets");
 		mnReports.add(mntmTimesheets);
-		
+
 		JMenuItem mntmProjectProgress = new JMenuItem("Project Progress");
 		mnReports.add(mntmProjectProgress);
-		
+
 		mnHelp = new JMenu("Help");
 		menuBar.add(mnHelp);
-		
+
+		menuBar.add(Box.createHorizontalGlue());
+
+		JMenu mnLogin = new JMenu("loggedInUser");
+		mnLogin.setEnabled(false);
+		menuBar.add(mnLogin);
+
+		// add menu items
+		JMenuItem mntmAccount = new JMenuItem("account");
+		mnLogin.add(mntmAccount);
+
 		getContentPane().removeAll();
 		WelcomeJPanel welcomeJPanel = new WelcomeJPanel(currentFrame);
+		welcomeJPanel.setBackground(Color.LIGHT_GRAY);
 		getContentPane().add(welcomeJPanel);
 		getContentPane().revalidate();
+<<<<<<< HEAD
 	}
 	
 	
+=======
+>>>>>>> branch 'master' of https://github.com/Otuyishime/ECC-Billing-System-SE4-1.git
 
+	}
 }
