@@ -25,11 +25,8 @@ import testECC.Employee;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-<<<<<<< HEAD
 import java.util.List;
-=======
 import java.awt.Color;
->>>>>>> branch 'master' of https://github.com/Otuyishime/ECC-Billing-System-SE4-1.git
 
 public class SystemJFrame extends JFrame {
 	public static Employee loggedInEmployee;
@@ -43,7 +40,7 @@ public class SystemJFrame extends JFrame {
 	JMenu mnInvoice;
 	JMenu mnReports;
 	JMenu mnHelp;
-	
+
 
 	/**
 	 * Create the frame.
@@ -54,7 +51,7 @@ public class SystemJFrame extends JFrame {
 		this.userAcctountJpanel =  new UserAccountJPanel(currentFrame);
 		//this.refreshTableEmployeeTable();
 
-		
+
 		//this.mainFrameServiceImpl= new MainFrameServiceImp();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Eagles Consulting Company");
@@ -88,10 +85,7 @@ public class SystemJFrame extends JFrame {
 			}
 		});
 		mnSystem.add(mntmLogout);
-<<<<<<< HEAD
-=======
 
->>>>>>> branch 'master' of https://github.com/Otuyishime/ECC-Billing-System-SE4-1.git
 		mnMaintain = new JMenu("Maintain");
 		mnMaintain.setEnabled(false);
 		menuBar.add(mnMaintain);
@@ -123,32 +117,22 @@ public class SystemJFrame extends JFrame {
 			}
 		});
 		mnMaintain.add(mntmProjects);
-<<<<<<< HEAD
-		
-		
-=======
 
->>>>>>> branch 'master' of https://github.com/Otuyishime/ECC-Billing-System-SE4-1.git
 		JMenuItem mntmEmployees = new JMenuItem("Employees");
 		mnMaintain.add(mntmEmployees);
-<<<<<<< HEAD
-		
+
 		mntmEmployees.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent arg0) {
-				
-			getContentPane().removeAll();
-			userAcctountJpanel= new UserAccountJPanel(currentFrame);
-			getContentPane().add(userAcctountJpanel);
-			getContentPane().revalidate();
+
+				getContentPane().removeAll();
+				userAcctountJpanel= new UserAccountJPanel(currentFrame);
+				getContentPane().add(userAcctountJpanel);
+				getContentPane().revalidate();
 			}	
 		});
 		mnMaintain.add(mntmEmployees);
 
-		
-=======
-
->>>>>>> branch 'master' of https://github.com/Otuyishime/ECC-Billing-System-SE4-1.git
 		mnInvoice = new JMenu("Invoice");
 		mnInvoice.setEnabled(false);
 		menuBar.add(mnInvoice);
@@ -187,12 +171,5 @@ public class SystemJFrame extends JFrame {
 		welcomeJPanel.setBackground(Color.LIGHT_GRAY);
 		getContentPane().add(welcomeJPanel);
 		getContentPane().revalidate();
-<<<<<<< HEAD
-	}
-	
-	
-=======
->>>>>>> branch 'master' of https://github.com/Otuyishime/ECC-Billing-System-SE4-1.git
-
 	}
 }
