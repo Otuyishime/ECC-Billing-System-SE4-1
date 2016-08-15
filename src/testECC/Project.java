@@ -154,4 +154,15 @@ public class Project {
 		System.out.println("Client contact: " + this.getClientcontact());
 		System.out.println("Budget: " + this.getBudget());
 	}
+
+	public Employee getEmployeeByName(String currentSelectedEmployeeName) {
+		Employee result = null;
+		
+		for( Employee e : this.getEmployees()){
+			if ( e.getName().equals(currentSelectedEmployeeName)){
+				return e;
+			}
+		}
+		return result;
+	}
 }

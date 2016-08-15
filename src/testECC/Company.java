@@ -349,13 +349,9 @@ public class Company
 	}
 
 	// ------------------ Edit Company ------------------
-	public static boolean EditCompany(Employee loggedinemployee, Company company){
+	public static boolean EditCompany(Company company){
 		boolean success = false;
-		// check if the employee has the "Accountant" role
-		if( !loggedinemployee.getRole().equals(SimpleRole.ACCOUNTANT)){
-			return false;
-		}
-		else if( company != null){
+		if( company != null){
 			// Obtains Session
 			EntityTransaction userTransaction = EM.INSTANCE.getEM().getTransaction();
 			userTransaction.begin();

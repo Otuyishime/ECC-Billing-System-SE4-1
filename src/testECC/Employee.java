@@ -182,4 +182,15 @@ public class Employee {
 		
 		return result;
 	}
+
+	public Project getProjectByName(String projectName) {
+		Project p = null;
+		for( Project proj : this.getProjects()){
+			if(proj.getName().equals(projectName)){
+				return proj;
+			}
+		}
+		
+		return p;
+	}
 }

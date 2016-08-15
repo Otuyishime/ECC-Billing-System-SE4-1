@@ -89,6 +89,7 @@ public class WelcomeJPanel extends JPanel {
 					currentFrame.getJMenuBar().getMenu(1).setEnabled(true);
 					currentFrame.getJMenuBar().getMenu(2).setEnabled(true);
 					currentFrame.getJMenuBar().getMenu(3).setEnabled(true);
+					
 					System.out.println("Successfully logged in - username: " + username + " - pwd: " + password);
 					
 					((SystemJFrame)currentFrame).loggedInEmployee = testMain.logIn(cred);;
@@ -102,10 +103,17 @@ public class WelcomeJPanel extends JPanel {
 						currentFrame.getContentPane().revalidate();
 					}
 					else if(employee.getRole().equals(SimpleRole.PROJECTMANAGER)){
-						
+						currentFrame.getContentPane().removeAll();
+						ProjectManagerHomePageJPanel projectManagerHomePageJPanel = new ProjectManagerHomePageJPanel(currentFrame, employee);
+						currentFrame.getContentPane().add(projectManagerHomePageJPanel);
+						currentFrame.getContentPane().revalidate();
 					}
 					else{
 						
+						currentFrame.getContentPane().removeAll();
+						AccountantHomePageJPanel accountantHomePageJPanel = new AccountantHomePageJPanel(currentFrame, employee);
+						currentFrame.getContentPane().add(accountantHomePageJPanel);
+						currentFrame.getContentPane().revalidate();
 					}
 				}
 				else

@@ -15,7 +15,9 @@ import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 
 import testECC.Company;
+import testECC.Employee;
 import utility.SimpleStates;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -29,11 +31,13 @@ public class MaintainCompanyJPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public MaintainCompanyJPanel(JFrame currentFrame, Company company) {
+	public MaintainCompanyJPanel(JFrame currentFrame, Employee employee) {
 		setBackground(Color.LIGHT_GRAY);
 		
 		setBounds(new Rectangle(0, 0, 900, 700));
 		setLayout(null);
+		
+		Company company = employee.getCompany();
 		
 		JLabel lblWelcomeToEagles = new JLabel("Update Company Information");
 		lblWelcomeToEagles.setHorizontalAlignment(SwingConstants.CENTER);
@@ -83,20 +87,7 @@ public class MaintainCompanyJPanel extends JPanel {
 		textField_city.setBounds(320, 240, 250, 30);
 		add(textField_city);
 		textField_city.setColumns(10);
-		
-		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(320, 386, 100, 30);
-		add(btnCancel);
-		
-		JButton btnUpdate = new JButton("Update");
-		btnUpdate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// update comany's information
-			}
-		});
-		btnUpdate.setBounds(470, 386, 100, 30);
-		add(btnUpdate);
-		
+
 		JLabel lblZipCode_1 = new JLabel("Zip Code:");
 		lblZipCode_1.setBounds(255, 325, 61, 22);
 		add(lblZipCode_1);
@@ -115,5 +106,49 @@ public class MaintainCompanyJPanel extends JPanel {
 			comboBox_states.setSelectedItem(company.getState());
 		}
 		add(comboBox_states);
+		
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				currentFrame.getContentPane().removeAll();
+				AccountantHomePageJPanel accountantHomePageJPanel = new AccountantHomePageJPanel(currentFrame, employee);
+				currentFrame.getContentPane().add(accountantHomePageJPanel);
+				currentFrame.getContentPane().revalidate();
+			}
+		});
+		btnCancel.setBounds(320, 386, 100, 30);
+		add(btnCancel);
+		
+		JButton btnUpdate = new JButton("Update");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// update comany's information
+				String name = textField_name.getText();
+				String address1 = textField_address1.getText();
+				String address2 = textField_address2.getText();
+				String city = textField_city.getText();
+				String state = comboBox_states.getSelectedItem().toString();
+				String zip = textField_zip.getText();
+				
+				System.out.print("Updating company with name: " + name + " address1: " + address1 + " address2: " + address2 + " city: " + city + " state: " + state + " zip: " + zip);
+				
+				// update company's info
+				company.setName(name);
+				company.setCompanyAddressline1(address1);
+				company.setCompanyAddressline2(address2);
+				company.setCity(city);
+				company.setState(state);
+				company.setZip(zip);
+				Company.EditCompany(company);
+				
+				currentFrame.getContentPane().removeAll();
+				MaintainCompanyJPanel maintainCompanyJPanel = new MaintainCompanyJPanel(currentFrame, employee);
+				currentFrame.getContentPane().add(maintainCompanyJPanel);
+				currentFrame.getContentPane().revalidate();
+			}
+		});
+		btnUpdate.setBounds(470, 386, 100, 30);
+		add(btnUpdate);
 	}
 }
