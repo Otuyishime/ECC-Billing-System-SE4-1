@@ -210,7 +210,6 @@ public class EccDM_Helper
 			}
 			
 			userTransaction.commit();
-			EM.INSTANCE.getEM().close();
 		}
 	}
 	

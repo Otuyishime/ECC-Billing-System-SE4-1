@@ -28,6 +28,7 @@ import testECC.Project;
 import testECC.TimeSheet;
 import testECC.TimeSheetLine;
 import utility.SimpleDate;
+import utility.SimpleRole;
 
 import javax.swing.JCheckBox;
 
@@ -45,7 +46,6 @@ public class ProjectManagerHomePageJPanel extends JPanel {
 
 		setBackground(Color.LIGHT_GRAY);
 		setForeground(new Color(165, 42, 42));
-
 		setBounds(new Rectangle(0, 0, 900, 700));
 		setLayout(null);
 
@@ -64,11 +64,35 @@ public class ProjectManagerHomePageJPanel extends JPanel {
 		lblNewLabel.setBounds(19, 70, 860, 30);
 		add(lblNewLabel);
 
+		JLabel lblSelectProject = new JLabel("Select Project");
+		lblSelectProject.setBounds(20, 121, 100, 30);
+		add(lblSelectProject);
+
+		JLabel lblTimeSheet = new JLabel("Time Sheet");
+		lblTimeSheet.setBounds(19, 298, 743, 30);
+		add(lblTimeSheet);
+
+		JCheckBox chckbxApprove = new JCheckBox("Approve");
+		chckbxApprove.setHorizontalAlignment(SwingConstants.RIGHT);
+		chckbxApprove.setBounds(774, 301, 105, 23);
+		add(chckbxApprove);
+
+		// ------------------------------ Developers table -----------------------------------------
 		String[] developerColumns = {"Employee", "Title", "Email"};
 		DefaultTableModel developerTableModel = new DefaultTableModel(developerColumns, 0);
 		JTable developersTable = new JTable(developerTableModel);
 		developersTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+		// ------------------------------ TimeSheet table ------------------------------------------
+		String[] timeSheetColumns = {"Date", "Employee", "Project", "Hours", "Verified"};
+		DefaultTableModel timeSheetTableModel = new DefaultTableModel(timeSheetColumns, 0);
+		JTable timesheetLinesTable = new JTable(timeSheetTableModel){
+			public Class getColumnClass(int c) {
+				return getValueAt(0, c).getClass();
+			}
+		};
+
+		// ------------------------------ ComboBox ------------------------------------------
 		ArrayList <String> projectsNames = new ArrayList<String>();
 		for (Project p : employee.getProjects()){
 			projectsNames.add(p.getName());
@@ -77,9 +101,6 @@ public class ProjectManagerHomePageJPanel extends JPanel {
 		comboBoxProjects.setBounds(132, 122, 200, 30);
 		add(comboBoxProjects);
 		comboBoxProjects.setSelectedIndex(0);
-
-		// ---- make a temporary project ---
-		Project currentSelectedProject = employee.getProjectByName(comboBoxProjects.getSelectedItem().toString());
 
 		comboBoxProjects.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
@@ -91,19 +112,8 @@ public class ProjectManagerHomePageJPanel extends JPanel {
 					developerTableModel.removeRow(0);
 				}
 
-				if (!(newProject.getEmployees().isEmpty())){
-					for (Employee emp : newProject.getEmployees()){
-						String employeeName = emp.getName();
-						String employeeTitle = emp.getTitle();
-						String employeeEmail = emp.getEmail();
-
-						// TODO: add this field to data (setters and getters)
-						Boolean verified = false;
-
-						developerTableModel.addRow(new Object[]{employeeName, employeeTitle, employeeEmail});
-					}
-				}
-
+				populateDeveloperTable(developerTableModel, newProject);	// UPDATE THE TABLE
+				developersTable.getSelectionModel().setSelectionInterval(0, 0);
 			}
 		});
 		comboBoxProjects.addActionListener(new ActionListener() {
@@ -112,76 +122,21 @@ public class ProjectManagerHomePageJPanel extends JPanel {
 			}
 		});
 
-		JLabel lblSelectProject = new JLabel("Select Project");
-		lblSelectProject.setBounds(20, 121, 100, 30);
-		add(lblSelectProject);
-
-		// ------------------------------ Developers table ------------------------------------------
-
+		// ---- Get the currently selected project ---
+		Project currentSelectedProject = employee.getProjectByName(comboBoxProjects.getSelectedItem().toString());
 		// initialize the time sheet model - if there is any time sheet line
-		if (!(currentSelectedProject.getEmployees().isEmpty())){
-			for (Employee emp : currentSelectedProject.getEmployees()){
-				String employeeName = emp.getName();
-				String employeeTitle = emp.getTitle();
-				String employeeEmail = emp.getEmail();
-
-				// TODO: add this field to data (setters and getters)
-				Boolean verified = false;
-
-				developerTableModel.addRow(new Object[]{employeeName, employeeTitle, employeeEmail});
-			}
-		}
+		populateDeveloperTable(developerTableModel, currentSelectedProject);	// INITIALIZE THE TABLE
 		developersTable.setPreferredScrollableViewportSize(new Dimension(300, 70));
 		developersTable.setFillsViewportHeight(true);
-
-		JScrollPane developerSrollpane = new JScrollPane(developersTable);
-		developerSrollpane.setSize(520, 155);
-		developerSrollpane.setLocation(359, 127);
-		add(developerSrollpane);
-		// ------------------------------ Developers table ------------------------------------------
-
-
+		developersTable.getSelectionModel().setSelectionInterval(0, 0);
 
 		// ------------------------------ TimeSheet table for a particular employee ------------------------------------------
-		developersTable.getSelectionModel().setSelectionInterval(0, 0);
 		String currentSelectedEmployeeName = developerTableModel.getValueAt(developersTable.getSelectedRow(), 0).toString();
-		System.out.print(currentSelectedEmployeeName);
 		Employee currentSelectedEmployee = currentSelectedProject.getEmployeeByName(currentSelectedEmployeeName);
 
-		String[] timeSheetColumns = {"Date", "Employee", "Project", "Hours", "Verified"};
-		DefaultTableModel timeSheetTableModel = new DefaultTableModel(timeSheetColumns, 0);
-		JTable timesheetLinesTable = new JTable(timeSheetTableModel){
-			public Class getColumnClass(int c) {
-				return getValueAt(0, c).getClass();
-			}
-		};
-		
-		developersTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				// TODO Auto-generated method stub
-				System.out.print("Selected develpper - " + developersTable.getValueAt(developersTable.getSelectedRow(), 0).toString());
-			}
-	    });
-		
 		// initialize the time sheet model - if there is any time sheet line
-		if (!(currentSelectedEmployee.getSubmittedTimeSheets().isEmpty())){
+		populateTimeSheetsTable(timeSheetTableModel, currentSelectedEmployee);	// UPDATE TIMESHEET TABLE
 
-			for (TimeSheet timeSheet : currentSelectedEmployee.getSubmittedTimeSheets()){
-				for (TimeSheetLine timeSheetLine : timeSheet.getTimesheetlines()){
-					String date = timeSheetLine.getDate();
-					String employeeName = timeSheetLine.getEmployee();
-					String projectName = timeSheetLine.getProject();
-					int hours = timeSheetLine.getHours();
-
-					// TODO: add this field to data (setters and getters)
-					Boolean verified = false;
-
-					timeSheetTableModel.addRow(new Object[]{date, employeeName, projectName, hours, verified});
-				}
-			}
-		}
 		timesheetLinesTable.setPreferredScrollableViewportSize(new Dimension(500, 70));
 		timesheetLinesTable.setFillsViewportHeight(true);
 
@@ -191,13 +146,79 @@ public class ProjectManagerHomePageJPanel extends JPanel {
 		add(timeSheetSrollpane);
 		// ------------------------------ TimeSheet table ------------------------------------------
 
-		JLabel lblTimeSheet = new JLabel("Time Sheet");
-		lblTimeSheet.setBounds(19, 298, 743, 30);
-		add(lblTimeSheet);
+		// ------------------------------ Developers table ------------------------------------------
+		// ADD A SELECTION LISTENER TO THE DEVELOPERS TABLE
+		developersTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
 
-		JCheckBox chckbxApprove = new JCheckBox("Approve");
-		chckbxApprove.setBounds(774, 301, 105, 23);
-		add(chckbxApprove);
+				if( developersTable.getSelectedRow() != -1){
+					System.out.println("Selected develpper: " + developerTableModel.getValueAt(developersTable.getSelectedRow(), 0).toString());
+					populateTimeSheetsTable(timeSheetTableModel, currentSelectedEmployee);
+				}
+			}
+		});
 
+		JScrollPane developerSrollpane = new JScrollPane(developersTable);
+		developerSrollpane.setSize(520, 155);
+		developerSrollpane.setLocation(359, 127);
+		add(developerSrollpane);
+		// ------------------------------ Developers table ------------------------------------------
+	}
+
+	private void populateDeveloperTable(DefaultTableModel developerTableModel, Project currentSelectedProject){
+		if (!(currentSelectedProject.getEmployees().isEmpty())){
+			for (Employee emp : currentSelectedProject.getEmployees()){
+
+				if( !emp.getRole().equals(SimpleRole.PROJECTMANAGER)){
+					String employeeName = emp.getName();
+					String employeeTitle = emp.getTitle();
+					String employeeEmail = emp.getEmail();
+
+					// TODO: add this field to data (setters and getters)
+					Boolean verified = false;
+
+					developerTableModel.addRow(new Object[]{employeeName, employeeTitle, employeeEmail});
+				}
+			}
+		}
+	}
+
+	//	private void populateTimeSheetsTable(DefaultTableModel timeSheetTableModel, Employee currentSelectedEmployee){
+	//		if (!(currentSelectedEmployee.getSubmittedTimeSheets().isEmpty())){
+	//
+	//			for (TimeSheet timeSheet : currentSelectedEmployee.getSubmittedTimeSheets()){
+	//				for (TimeSheetLine timeSheetLine : timeSheet.getTimesheetlines()){
+	//					String date = timeSheetLine.getDate();
+	//					String employeeName = timeSheetLine.getEmployee();
+	//					String projectName = timeSheetLine.getProject();
+	//					int hours = timeSheetLine.getHours();
+	//
+	//					// TODO: add this field to data (setters and getters)
+	//					Boolean verified = false;
+	//
+	//					timeSheetTableModel.addRow(new Object[]{date, employeeName, projectName, hours, verified});
+	//				}
+	//			}
+	//		}
+	//	}
+
+	private void populateTimeSheetsTable(DefaultTableModel timeSheetTableModel, Employee currentSelectedEmployee){
+		if ((currentSelectedEmployee.getCurrentTimeSheet() != null)){
+
+			//for (TimeSheet timeSheet : currentSelectedEmployee.getSubmittedTimeSheets()){
+			for (TimeSheetLine timeSheetLine : currentSelectedEmployee.getCurrentTimeSheet().getTimesheetlines()){
+				String date = timeSheetLine.getDate();
+				String employeeName = timeSheetLine.getEmployee();
+				String projectName = timeSheetLine.getProject();
+				int hours = timeSheetLine.getHours();
+
+				// TODO: add this field to data (setters and getters)
+				Boolean verified = false;
+
+				timeSheetTableModel.addRow(new Object[]{date, employeeName, projectName, hours, verified});
+			}
+			//}
+		}
 	}
 }

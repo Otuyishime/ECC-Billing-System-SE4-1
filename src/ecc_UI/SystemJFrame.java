@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 import testECC.Employee;
 import testECC.testMain;
 import utility.Credential;
-
+import utility.SimpleRole;
 import dAO.CompanyDAO;
 import dAO.EmployeeDAO;
 import billingProjectModel.MainFrameQuery;
@@ -46,6 +46,7 @@ public class SystemJFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public SystemJFrame() {
+		setResizable(false);
 
 		currentFrame = this;
 		this.userAcctountJpanel =  new UserAccountJPanel(currentFrame);
@@ -63,6 +64,33 @@ public class SystemJFrame extends JFrame {
 		mnSystem = new JMenu("System");
 		mnSystem.setEnabled(false);
 		menuBar.add(mnSystem);
+		
+		JMenuItem mntmHome = new JMenuItem("Home");
+		mntmHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (loggedInEmployee.getRole().equals(SimpleRole.DEVELOPER)){
+					currentFrame.getContentPane().removeAll();
+					DeveloperHomePageJPanel homepageJPanel = new DeveloperHomePageJPanel(currentFrame, loggedInEmployee);
+					currentFrame.getContentPane().add(homepageJPanel);
+					currentFrame.getContentPane().revalidate();
+				}
+				else if(loggedInEmployee.getRole().equals(SimpleRole.PROJECTMANAGER)){
+					currentFrame.getContentPane().removeAll();
+					ProjectManagerHomePageJPanel projectManagerHomePageJPanel = new ProjectManagerHomePageJPanel(currentFrame, loggedInEmployee);
+					currentFrame.getContentPane().add(projectManagerHomePageJPanel);
+					currentFrame.getContentPane().revalidate();
+				}
+				else{
+					
+					currentFrame.getContentPane().removeAll();
+					AccountantHomePageJPanel accountantHomePageJPanel = new AccountantHomePageJPanel(currentFrame, loggedInEmployee);
+					currentFrame.getContentPane().add(accountantHomePageJPanel);
+					currentFrame.getContentPane().revalidate();
+				}
+			}
+		});
+		mnSystem.add(mntmHome);
 
 		JMenuItem mntmLogout = new JMenuItem("Logout");
 		mntmLogout.addActionListener(new ActionListener() {
@@ -105,14 +133,22 @@ public class SystemJFrame extends JFrame {
 		mnMaintain.add(mntmCompany);
 
 		JMenuItem mntmClients = new JMenuItem("Clients");
+		mntmClients.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getContentPane().removeAll();
+				MaintainClientsPanel maintainClientsPanel = new MaintainClientsPanel(currentFrame, loggedInEmployee);
+				getContentPane().add(maintainClientsPanel);
+				getContentPane().revalidate();
+			}
+		});
 		mnMaintain.add(mntmClients);
 
 		JMenuItem mntmProjects = new JMenuItem("Projects");
 		mntmProjects.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				getContentPane().removeAll();
-				MaintainProjectJPanel maintainProjectJPanel = new MaintainProjectJPanel(currentFrame, loggedInEmployee);
-				getContentPane().add(maintainProjectJPanel);
+				MaintainProjectsPanel MaintainProjectsPanel = new MaintainProjectsPanel(currentFrame, loggedInEmployee);
+				getContentPane().add(MaintainProjectsPanel);
 				getContentPane().revalidate();
 			}
 		});

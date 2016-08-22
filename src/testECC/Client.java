@@ -47,8 +47,8 @@ public class Client {
 	/**
 	 * customer's contacts.
 	 */
-	@Column(name = "phonenumber", nullable = false, length = 50)
-	private String clientPhoneNumber;
+	@Column(name = "contact", nullable = false, length = 50)
+	private String contact;
 	
 	@Column(name = "email", nullable = false, length = 50)
 	private String clientEmail;
@@ -157,12 +157,12 @@ public class Client {
 		this.clientStatus = clientStatus;
 	}
 
-	public String getClientPhoneNumber() {
-		return clientPhoneNumber;
+	public String getContact() {
+		return contact;
 	}
 
-	public void setClientPhoneNumber(String clientPhoneNumber) {
-		this.clientPhoneNumber = clientPhoneNumber;
+	public void setContact(String contact) {
+		this.contact = contact;
 	}
 
 	public String getClientEmail() {
@@ -232,7 +232,7 @@ public class Client {
 
 	public Client(long clientnumber, String name, 
 			String companyAddressLine1, String companyAddressLine2, String city, String state, String zip, 
-			String clientStatus, String clientPhoneNumber, String clientEmail,
+			String clientStatus, String contact, String clientEmail,
 			String billingfrequency, String billingterms, String billinginvoicinggroup) {
 		this();
 		this.id = clientnumber;
@@ -243,7 +243,7 @@ public class Client {
 		this.state = state;
 		this.zip = zip;
 		this.clientStatus = clientStatus;
-		this.clientPhoneNumber = clientPhoneNumber;
+		this.contact = contact;
 		this.clientEmail = clientEmail;
 		this.billingfrequency = billingfrequency;
 		this.billingterms = billingterms;
@@ -265,7 +265,7 @@ public class Client {
 		System.out.println("State: " + this.getState());
 		System.out.println("Zip: " + this.getZip());
 		System.out.println("Status:" + this.getClientStatus());
-		System.out.println("Phone Number:" + this.getClientPhoneNumber());
+		System.out.println("Contact:" + this.getContact());
 		System.out.println("Email:" + this.getClientEmail());
 		System.out.println("Frequency:" + this.billingfrequency);
 		System.out.println("Billing Terms:" + this.getBillingterms());

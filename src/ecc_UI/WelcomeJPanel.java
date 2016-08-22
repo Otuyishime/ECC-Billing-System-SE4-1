@@ -8,7 +8,6 @@ import javax.swing.JLabel;
 import java.awt.Font;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
@@ -25,6 +24,10 @@ import java.awt.Color;
 import javax.swing.SwingConstants;
 
 public class WelcomeJPanel extends JPanel {
+	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
 	private JTextField usernameField;
 	private JPasswordField passwordField;
 	//private static Employee loggedInEmployee;
@@ -94,7 +97,9 @@ public class WelcomeJPanel extends JPanel {
 					
 					((SystemJFrame)currentFrame).loggedInEmployee = testMain.logIn(cred);;
 					
-					System.out.println("------- " + ((SystemJFrame)currentFrame).loggedInEmployee.getName());
+					//System.out.println("------- " + ((SystemJFrame)currentFrame).loggedInEmployee.getName());
+					//System.out.println("Submitted timesheets are: \n");
+					//employee.getSubmittedTimeSheets().get(0).print();
 					
 					if (employee.getRole().equals(SimpleRole.DEVELOPER)){
 						currentFrame.getContentPane().removeAll();

@@ -153,15 +153,14 @@ public class Employee {
 		System.out.println("Payrate: " + this.getPayrate());
 		System.out.println("Status: " + this.getStatus());
 	}
-
-	// ------------------ Query the submitted time sheets ------------------
-	public ArrayList<TimeSheet> getSubmittedTimeSheets(){
-		ArrayList<TimeSheet> results = new ArrayList<TimeSheet>();
+	
+	public ArrayList<TimeSheetLine> getNonReviewedTimeSheetLinesForProject(String projName){
+		ArrayList<TimeSheetLine> results = new ArrayList<TimeSheetLine>();
 
 		if( !this.getTimesheets().isEmpty()){
-			for( TimeSheet timesheet : this.getTimesheets()){
-				if( timesheet.isSubmitted()){
-					results.add(timesheet);
+			for( TimeSheetLine timesheetline : this.getCurrentTimeSheet().getTimesheetlines()){
+				if( timesheetline.getProject().equals(projName) && !timesheetline.isReviewed()){
+					results.add(timesheetline);
 				}
 			}
 		}
@@ -173,11 +172,7 @@ public class Employee {
 		TimeSheet result = null;
 		
 		if( !this.getTimesheets().isEmpty()){
-			for( TimeSheet timesheet : this.getTimesheets()){
-				if( !timesheet.isSubmitted()){
-					result = timesheet;
-				}
-			}
+			return this.getTimesheets().get(0);
 		}
 		
 		return result;

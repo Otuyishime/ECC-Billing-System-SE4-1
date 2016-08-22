@@ -167,8 +167,21 @@ public class Company
 		System.out.println("Zip: " + this.getZip());
 	}
 
+	// ------------------ Get clients by name ------------------
+	public Client getClientByName(String clientname){
+		Client result = null;
+		if( !this.getClients().isEmpty()){
+			for( Client client : this.getClients()){
+				if ( client.getName().equals(clientname)){
+					return client;
+				}
+			}
+		}
+
+		return result;
+	}
 	// ------------------ Enter Worked Hours ------------------
-	public static boolean EnterHours(Employee loggedinemployee, String projectworkedon, int workedhours){
+	public static boolean EnterHours(Employee loggedinemployee, String projectworkedon, String date, int workedhours){
 		boolean success = false;
 
 		// check if the employee has the "Developer" role
@@ -177,21 +190,11 @@ public class Company
 		}
 		else{
 			// get the employee time sheet
-			TimeSheet timesheet = null;
-
-			if( loggedinemployee.getCurrentTimeSheet() == null ){
-				// create a new time sheet
-				timesheet = new TimeSheet();
-				timesheet.setCompany(loggedinemployee.getCompany());
-				timesheet.setSubmitted(false);
-			}
-			else{
-				timesheet = loggedinemployee.getCurrentTimeSheet();
-			}
+			TimeSheet timesheet = loggedinemployee.getCurrentTimeSheet();
 
 			// create a new time sheet line
 			TimeSheetLine timesheetline = new TimeSheetLine();
-			timesheetline.setDate(SimpleDate.getTodayDate());
+			timesheetline.setDate(date);
 			timesheetline.setEmployee(loggedinemployee.getName());
 			timesheetline.setProject(projectworkedon);
 			timesheetline.setHours(workedhours);
@@ -199,26 +202,54 @@ public class Company
 
 			// Link objects
 			timesheetline.setTimesheet(timesheet);
-			timesheet.setEmployee(loggedinemployee);
-
 			timesheet.getTimesheetlines().add(timesheetline);
-			loggedinemployee.getTimesheets().add(timesheet);
 
 			// Obtains Session
 			EntityTransaction userTransaction = EM.INSTANCE.getEM().getTransaction();
 			userTransaction.begin();
 
 			// persist the objects
-			EM.INSTANCE.getEM().persist(loggedinemployee);
 			EM.INSTANCE.getEM().persist(timesheet);
 			EM.INSTANCE.getEM().persist(timesheetline);
 
 			userTransaction.commit();
-			EM.INSTANCE.getEM().close();	// close session
 
 			success = true;
-			return success;
 		}
+
+		return success;
+	}
+
+	// ------------------ Create a new time sheet ------------------
+	public static boolean AddNewTimeSheet(Employee loggedinemployee, TimeSheet timesheet){
+		boolean success = false;
+
+		if( timesheet != null )
+		{
+			timesheet.setSubmitted(false);
+			timesheet.setEmployee(loggedinemployee);
+			timesheet.setCompany(loggedinemployee.getCompany());
+			
+			// add time sheet to the client
+			loggedinemployee.getTimesheets().add(timesheet);
+			// add time sheet to the company
+			loggedinemployee.getCompany().getTimesheets().add(timesheet);
+			
+			// Obtains Session
+			EntityTransaction userTransaction = EM.INSTANCE.getEM().getTransaction();
+			userTransaction.begin();
+
+			// persist the objects
+			EM.INSTANCE.getEM().persist(loggedinemployee.getCompany());
+			EM.INSTANCE.getEM().persist(loggedinemployee);
+			EM.INSTANCE.getEM().persist(timesheet);
+
+			userTransaction.commit();
+
+			success = true;
+		}
+
+		return success;
 	}
 
 	// ------------------ Submit time sheet ------------------
@@ -245,7 +276,6 @@ public class Company
 				EM.INSTANCE.getEM().persist(timesheet);
 
 				userTransaction.commit();
-				EM.INSTANCE.getEM().close();	// close session
 
 				success = true;
 				return success;
@@ -277,7 +307,6 @@ public class Company
 			EM.INSTANCE.getEM().persist(newemployee);
 
 			userTransaction.commit();
-			EM.INSTANCE.getEM().close();	// close session
 
 			success = true;
 			return success;
@@ -308,7 +337,6 @@ public class Company
 			EM.INSTANCE.getEM().persist(newclient);
 
 			userTransaction.commit();
-			EM.INSTANCE.getEM().close();	// close session
 
 			success = true;
 			return success;
@@ -339,7 +367,6 @@ public class Company
 			EM.INSTANCE.getEM().persist(newproject);
 
 			userTransaction.commit();
-			EM.INSTANCE.getEM().close();	// close session
 
 			success = true;
 			return success;
@@ -360,7 +387,6 @@ public class Company
 			EM.INSTANCE.getEM().persist(company);
 
 			userTransaction.commit();
-			EM.INSTANCE.getEM().close();	// close session
 
 			success = true;
 			return success;
@@ -385,7 +411,6 @@ public class Company
 			EM.INSTANCE.getEM().persist(client);
 
 			userTransaction.commit();
-			EM.INSTANCE.getEM().close();	// close session
 
 			success = true;
 			return success;
@@ -402,7 +427,7 @@ public class Company
 			return false;
 		}
 		else if( project != null){
-			
+
 			// Obtains Session
 			EntityTransaction userTransaction = EM.INSTANCE.getEM().getTransaction();
 			userTransaction.begin();
@@ -411,7 +436,6 @@ public class Company
 			EM.INSTANCE.getEM().persist(project);
 
 			userTransaction.commit();
-			EM.INSTANCE.getEM().close();	// close session
 
 			success = true;
 			return success;
@@ -428,7 +452,7 @@ public class Company
 			return false;
 		}
 		else if( employee != null){
-			
+
 			// Obtains Session
 			EntityTransaction userTransaction = EM.INSTANCE.getEM().getTransaction();
 			userTransaction.begin();
@@ -437,7 +461,6 @@ public class Company
 			EM.INSTANCE.getEM().persist(employee);
 
 			userTransaction.commit();
-			EM.INSTANCE.getEM().close();	// close session
 
 			success = true;
 			return success;

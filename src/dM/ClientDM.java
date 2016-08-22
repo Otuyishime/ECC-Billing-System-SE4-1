@@ -92,7 +92,7 @@ public class ClientDM
 	        	client.setState(state);
 	        	client.setZip(zip);
 	        	client.setClientEmail(email);
-	        	client.setClientPhoneNumber(contact);
+	        	client.setContact(contact);
 	        	client.setBillingfrequency(invoicefrequency);
 	        	client.setBillingterms(billingterms);
 	        	client.setBillinginvoicinggroup(invoicegrouping);

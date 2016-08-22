@@ -24,9 +24,10 @@ import testECC.Employee;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.List;
+import java.awt.Rectangle;
 
 public class UserAccountJPanel extends JApplet {
-	
+
 	private JTextField NameTField;
 	private JTextField TitleTField;
 	private JComboBox  roleComboBox;
@@ -44,63 +45,72 @@ public class UserAccountJPanel extends JApplet {
 	 * Create the applet.
 	 */
 	public UserAccountJPanel(JFrame currentFrame) {
-		
+
 		JLabel lblUserAccountMaintainance = new JLabel("User Account Maintainance");
-		
+
 		JLabel lblName = new JLabel("Name");
-		
+
 		NameTField = new JTextField();
 		NameTField.setColumns(10);
-		
+
 		TitleTField = new JTextField();
 		TitleTField.setColumns(10);
-		
+
 		JLabel lblTitle = new JLabel("Title");
-		
+
 		JLabel lblRole = new JLabel("Role");
-		
+
 		roleComboBox = new JComboBox();
-		
+
 		JLabel lblEmail = new JLabel("e-mail");
-		
+
 		emailTField = new JTextField();
 		emailTField.setColumns(10);
-		
+
 		JLabel lblPayRate = new JLabel("Pay Rate");
-		
+
 		payRateTField = new JTextField();
 		payRateTField.setColumns(10);
-		
+
 		JLabel lblStatus = new JLabel("Active");
-		
+
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("No");
-		
+
 		JRadioButton rdbtnNonActive = new JRadioButton("Yes");
-		
+
 		table = new JTable();
-		
+
 		JPanel EmployeeTableJPanel = new JPanel();
-		
+		EmployeeTableJPanel.setBounds(new Rectangle(20, 0, 860, 0));
+
 		addButton = new JButton("Add");
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		
+
 		btnEdit = new JButton("Edit");
-		
+
 		JLabel lblPassWord = new JLabel("Pass word");
-		
+
 		passWordTField = new JTextField();
 		passWordTField.setColumns(10);
-		
+
 		JLabel lblConfirmPassword = new JLabel("Confirm PassWord");
-		
+
 		confirmPassWordTField = new JTextField();
 		confirmPassWordTField.setColumns(10);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap(646, Short.MAX_VALUE)
+					.addComponent(table, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(254))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(162)
+					.addComponent(lblUserAccountMaintainance)
+					.addContainerGap(567, Short.MAX_VALUE))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(9)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
@@ -113,10 +123,10 @@ public class UserAccountJPanel extends JApplet {
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-										.addComponent(roleComboBox, 0, 86, Short.MAX_VALUE)
-										.addComponent(passWordTField, Alignment.LEADING)
+										.addComponent(roleComboBox, 0, 373, Short.MAX_VALUE)
+										.addComponent(passWordTField, Alignment.LEADING, 373, 373, 373)
 										.addComponent(NameTField, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(payRateTField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
+										.addComponent(payRateTField, Alignment.LEADING, 373, 373, 373))
 									.addGap(70)
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addComponent(lblEmail)
@@ -129,10 +139,10 @@ public class UserAccountJPanel extends JApplet {
 											.addComponent(rdbtnNewRadioButton)
 											.addGap(18)
 											.addComponent(rdbtnNonActive, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE))
-										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-											.addComponent(TitleTField, Alignment.LEADING)
-											.addComponent(emailTField, Alignment.LEADING)
-											.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+											.addComponent(TitleTField)
+											.addComponent(emailTField)
+											.addGroup(groupLayout.createSequentialGroup()
 												.addGap(4)
 												.addComponent(confirmPassWordTField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
 									.addGap(81))
@@ -143,24 +153,16 @@ public class UserAccountJPanel extends JApplet {
 									.addPreferredGap(ComponentPlacement.RELATED))))
 						.addComponent(lblName))
 					.addGap(31))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(290, Short.MAX_VALUE)
-					.addComponent(table, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(254))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(EmployeeTableJPanel, GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
-					.addContainerGap())
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(162)
-					.addComponent(lblUserAccountMaintainance)
-					.addContainerGap(252, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap(32, Short.MAX_VALUE)
+					.addComponent(EmployeeTableJPanel, GroupLayout.PREFERRED_SIZE, 850, GroupLayout.PREFERRED_SIZE)
+					.addGap(18))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addComponent(lblUserAccountMaintainance)
-					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblName)
 						.addComponent(NameTField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -205,25 +207,18 @@ public class UserAccountJPanel extends JApplet {
 		EmployeeTableJPanel.add(new JScrollPane(userTable), BorderLayout.CENTER);
 		getContentPane().setLayout(groupLayout);
 		this.refreshTableEmployeeTable();
-
 	}
-	
+
 	public void setTableModel(List<Employee>employeeList){
-		this.tableModel.setEmployeeList(employeeList);
-			
+		this.tableModel.setEmployeeList(employeeList);	
 	}
 	public void UpdateTable(){
 		this.tableModel.updateTable();
 	}
-	
-	
+
 	public void refreshTableEmployeeTable(){
 		List<Employee> employees = CompanyDAO.listCompanies().get(0).getEmployees();
 		this.setTableModel(employees);
 		this.UpdateTable();
-		
-		
 	}
-	
-	
 }

@@ -8,6 +8,7 @@ import billingProjectModel.MainFrameService;
 import billingProjectModel.MainFrameServiceImp;
 import utility.Credential;
 import utility.Settings;
+import utility.SimpleDate;
 import dAO.*;
 import dM.EccDM_Helper;
 import ecc_UI.SystemJFrame;
@@ -40,10 +41,8 @@ public class testMain {
 	}
 
 	public static void main(String[] args) {
-		initSystem();
-
-
 		// Initialize the system
+		initSystem();
 		
 		// start the main system frame
 		EventQueue.invokeLater(new Runnable() {
