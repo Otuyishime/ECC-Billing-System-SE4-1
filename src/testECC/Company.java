@@ -180,6 +180,21 @@ public class Company
 
 		return result;
 	}
+
+	// ------------------ Get employee by name ------------------
+	public Employee getEmployeeByName(String employeename){
+		Employee result = null;
+		if( !this.getClients().isEmpty()){
+			for( Employee employee : this.getEmployees()){
+				if ( employee.getName().equals(employeename)){
+					return employee;
+				}
+			}
+		}
+
+		return result;
+	}
+	
 	// ------------------ Enter Worked Hours ------------------
 	public static boolean EnterHours(Employee loggedinemployee, String projectworkedon, String date, int workedhours){
 		boolean success = false;
@@ -229,12 +244,12 @@ public class Company
 			timesheet.setSubmitted(false);
 			timesheet.setEmployee(loggedinemployee);
 			timesheet.setCompany(loggedinemployee.getCompany());
-			
+
 			// add time sheet to the client
 			loggedinemployee.getTimesheets().add(timesheet);
 			// add time sheet to the company
 			loggedinemployee.getCompany().getTimesheets().add(timesheet);
-			
+
 			// Obtains Session
 			EntityTransaction userTransaction = EM.INSTANCE.getEM().getTransaction();
 			userTransaction.begin();

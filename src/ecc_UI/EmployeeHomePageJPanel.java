@@ -32,7 +32,7 @@ import java.awt.Color;
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JCalendar;
 
-public class DeveloperHomePageJPanel extends JPanel {
+public class EmployeeHomePageJPanel extends JPanel {
 	/**
 	 * 
 	 */
@@ -43,7 +43,7 @@ public class DeveloperHomePageJPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public DeveloperHomePageJPanel(JFrame currentFrame, Employee employee) {
+	public EmployeeHomePageJPanel(JFrame currentFrame, Employee employee) {
 		setBackground(Color.LIGHT_GRAY);
 		setForeground(new Color(165, 42, 42));
 

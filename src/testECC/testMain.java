@@ -11,6 +11,7 @@ import utility.Settings;
 import utility.SimpleDate;
 import dAO.*;
 import dM.EccDM_Helper;
+import dM.LoadTimeSheetLinesDM;
 import ecc_UI.SystemJFrame;
 
 public class testMain {
@@ -28,6 +29,11 @@ public class testMain {
 		if( companies.isEmpty()){
 			EccDM_Helper.loadData();
 		}
+
+		// load the time sheet lines for testing
+		if(companies.get(0).getTimesheets().isEmpty()){
+			LoadTimeSheetLinesDM.loadTimeSheetLines(companies.get(0));
+		}
 	}
 
 	public static Employee logIn(Credential credential){
@@ -43,12 +49,12 @@ public class testMain {
 	public static void main(String[] args) {
 		// Initialize the system
 		initSystem();
-		
+
 		// start the main system frame
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					
+
 					SystemJFrame frame = new SystemJFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {

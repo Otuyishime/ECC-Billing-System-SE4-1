@@ -37,12 +37,12 @@ import java.awt.event.ItemEvent;
 import java.awt.event.HierarchyListener;
 import java.awt.event.HierarchyEvent;
 
-public class ProjectManagerHomePageJPanel extends JPanel {
+public class VerifyEmployeeHoursPageJPanel extends JPanel {
 
 	/**
 	 * Create the panel.
 	 */
-	public ProjectManagerHomePageJPanel(JFrame currentFrame, Employee employee) {
+	public VerifyEmployeeHoursPageJPanel(JFrame currentFrame, Employee employee) {
 
 		setBackground(Color.LIGHT_GRAY);
 		setForeground(new Color(165, 42, 42));

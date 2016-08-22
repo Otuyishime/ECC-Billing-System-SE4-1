@@ -71,14 +71,14 @@ public class SystemJFrame extends JFrame {
 				
 				if (loggedInEmployee.getRole().equals(SimpleRole.DEVELOPER)){
 					currentFrame.getContentPane().removeAll();
-					DeveloperHomePageJPanel homepageJPanel = new DeveloperHomePageJPanel(currentFrame, loggedInEmployee);
+					EmployeeHomePageJPanel homepageJPanel = new EmployeeHomePageJPanel(currentFrame, loggedInEmployee);
 					currentFrame.getContentPane().add(homepageJPanel);
 					currentFrame.getContentPane().revalidate();
 				}
 				else if(loggedInEmployee.getRole().equals(SimpleRole.PROJECTMANAGER)){
 					currentFrame.getContentPane().removeAll();
-					ProjectManagerHomePageJPanel projectManagerHomePageJPanel = new ProjectManagerHomePageJPanel(currentFrame, loggedInEmployee);
-					currentFrame.getContentPane().add(projectManagerHomePageJPanel);
+					ProjectManagerHomePanel projectManagerHomePanel = new ProjectManagerHomePanel(currentFrame, loggedInEmployee);
+					currentFrame.getContentPane().add(projectManagerHomePanel);
 					currentFrame.getContentPane().revalidate();
 				}
 				else{

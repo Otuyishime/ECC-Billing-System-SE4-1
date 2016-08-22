@@ -110,7 +110,7 @@ public class TimeSheetLine {
 	public void print(){
 		System.out.println("\nFound:");
 		System.out.println("Date: " + this.getDate());
-		System.out.println("Employee: " + this);
+		System.out.println("Employee: " + this.getEmployee());
 		System.out.println("Project: " + this.getProject());
 		System.out.println("Hours: " + this.getHours());
 		System.out.println("IsReviewed: " + this.isReviewed());

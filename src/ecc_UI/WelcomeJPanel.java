@@ -95,22 +95,18 @@ public class WelcomeJPanel extends JPanel {
 					
 					System.out.println("Successfully logged in - username: " + username + " - pwd: " + password);
 					
-					((SystemJFrame)currentFrame).loggedInEmployee = testMain.logIn(cred);;
-					
-					//System.out.println("------- " + ((SystemJFrame)currentFrame).loggedInEmployee.getName());
-					//System.out.println("Submitted timesheets are: \n");
-					//employee.getSubmittedTimeSheets().get(0).print();
+					((SystemJFrame)currentFrame).loggedInEmployee = testMain.logIn(cred);
 					
 					if (employee.getRole().equals(SimpleRole.DEVELOPER)){
 						currentFrame.getContentPane().removeAll();
-						DeveloperHomePageJPanel homepageJPanel = new DeveloperHomePageJPanel(currentFrame, employee);
+						EmployeeHomePageJPanel homepageJPanel = new EmployeeHomePageJPanel(currentFrame, employee);
 						currentFrame.getContentPane().add(homepageJPanel);
 						currentFrame.getContentPane().revalidate();
 					}
 					else if(employee.getRole().equals(SimpleRole.PROJECTMANAGER)){
 						currentFrame.getContentPane().removeAll();
-						ProjectManagerHomePageJPanel projectManagerHomePageJPanel = new ProjectManagerHomePageJPanel(currentFrame, employee);
-						currentFrame.getContentPane().add(projectManagerHomePageJPanel);
+						ProjectManagerHomePanel projectManagerHomePanel = new ProjectManagerHomePanel(currentFrame, employee);
+						currentFrame.getContentPane().add(projectManagerHomePanel);
 						currentFrame.getContentPane().revalidate();
 					}
 					else{

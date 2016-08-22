@@ -169,13 +169,20 @@ public class Employee {
 	}
 	
 	public TimeSheet getCurrentTimeSheet(){
-		TimeSheet result = null;
-		
 		if( !this.getTimesheets().isEmpty()){
 			return this.getTimesheets().get(0);
 		}
-		
-		return result;
+		else{
+			// create a new time sheet
+			TimeSheet timesheet = new TimeSheet();
+			timesheet.setCompany(this.getCompany());
+			timesheet.setEmployee(this);
+			timesheet.setSubmitted(false);
+			this.getTimesheets().add(timesheet);
+			
+			// return the time sheet
+			return this.getTimesheets().get(0);
+		}
 	}
 
 	public Project getProjectByName(String projectName) {
